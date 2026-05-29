@@ -51,12 +51,8 @@ const handleSubmit = async (e) => {
       password: formData.password,
     });
 
-    if (data.error) {
-      throw new Error(data.error);
-    }
-
     if (!data.token) {
-      throw new Error("Token missing from server");
+      throw new Error(data.message || "Token missing from server");
     }
 
     // Save token
@@ -110,6 +106,13 @@ const handleSubmit = async (e) => {
       subtitle="Sign in to your account to continue"
     >
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* General Error Message */}
+        {errors.general && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            {errors.general}
+          </div>
+        )}
+
         {/* Email Input */}
         <Input
           label="Email Address"

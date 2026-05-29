@@ -7,12 +7,7 @@ export interface LoginCredentials {
 
 export interface AuthResponse {
   token?: string;
-  user?: {
-    id: string;
-    email: string;
-    name?: string;
-  };
-  error?: string;
+  message?: string;
 }
 
 export const authService = {
@@ -32,7 +27,7 @@ export const authService = {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         return {
-          error: errorData.message || "Login failed",
+          message: errorData.message || "Login failed",
         };
       }
 
@@ -40,7 +35,7 @@ export const authService = {
       return data;
     } catch (error) {
       return {
-        error:
+        message:
           error instanceof Error ? error.message : "Network error occurred",
       };
     }
