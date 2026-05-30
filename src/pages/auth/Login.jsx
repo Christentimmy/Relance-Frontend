@@ -55,18 +55,8 @@ const handleSubmit = async (e) => {
       throw new Error(data.message || "Token missing from server");
     }
 
-    // Save token
-    localStorage.setItem("token", data.token);
-
-    // Decode JWT to get user info like role
-    const payload = JSON.parse(atob(data.token.split('.')[1]));
-    const role = payload.role || "buyer";
-    const userId = payload.id || null;
-
-    // Store role and userId in localStorage
-    localStorage.setItem("userRole", role);
-    localStorage.setItem("user", JSON.stringify({ id: userId, role }));
-
+    // Token and user data are now stored automatically by authService.login()
+    
     // Navigate to dashboard
     navigate("/dashboard");
 
